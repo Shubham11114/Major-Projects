@@ -1,10 +1,18 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<!-- <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/"><i class="fa-solid fa-compass"></i>WanderHub</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
+    <div class="search-box">
+       <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" aria-current="page" href="/">Home</a>
@@ -13,5 +21,65 @@
 
       </div>
     </div>
+
+
   </div>
-</nav>
+</nav> -->
+
+<header>
+    <nav class="nav-main">
+      <div class="nav-left">
+         <a class="logo-brand" href="/"><i class="fa-solid fa-compass"></i>WanderHub</a>
+          
+         <button class="nav-togle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+         </button>
+
+    
+        <div class="nav-menu">
+          <a href="#home" class="active">Home</a>  
+          <a href="#services">Services</a> 
+          <a href="#contact">Contact</a> 
+          <a href="#about">About</a> 
+          <a href="#alllistinings">All Listining</a>
+          <a class="addNew-listining" href="#addlistining">Add Listining <span>NEW</span></a>  
+        </div>
+          <!-- <i class="fa-solid fa-bars toggle-btn"></i> -->
+      </div>
+
+      <div class="nav-right">
+        <div class="search-bar">
+          <button class="search-btn" type="button" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <input type="text" placeholder="Search Your Destination...">
+        </div>
+
+        <div class="icon-div" id="wishlist">
+          <i class="fa-regular fa-heart icons"></i>
+          <p class="nav-icon-text">Wishlist</p>
+        </div>
+ 
+
+        <div class="icon-div" id="profile-div">
+           <i class="fa-regular fa-circle-user icons"></i>
+           <p class="nav-icon-text">Profile</p>
+        </div>
+         
+    </nav>
+
+  </header>
+
+  <script>
+      
+      const navTogle = document.querySelector('.nav-togle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      navTogle.addEventListener('click', () => {
+        navTogle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      })
+     
+  </script>
