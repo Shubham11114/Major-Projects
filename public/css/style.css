@@ -8,10 +8,10 @@ body {
 .conatiner {
   flex: 1;
 }
-/* .navbar {
+.navbar {
   height: 5rem;
   background-color: white;
-} */
+}
 .fa-compass {
   color: rgb(28, 28, 255);
   font-size: 1.5rem;

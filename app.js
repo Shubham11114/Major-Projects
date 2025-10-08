@@ -12,7 +12,7 @@ const { error } = require("console");
 
 
 
-app.set("views engine","ejs");
+app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverirde ("_method"));
@@ -83,7 +83,7 @@ app.get("/listings/:id",wrapAsync(async (req,res)=>{
 
 //Create Route
 app.post("/listings",validateSchema,wrapAsync( async (req,res,next)=>{
-  const newListing= new Listing(listing);
+  const newListing= new Listing(req.bodylisting);
   await newListing.save();
   res.redirect("/listings");
 }));
@@ -118,7 +118,8 @@ app.all("",(req,res,next)=>{
 app.use((err,req,res,next)=>{
   let {statusCode=500,message="Something went Wrong !!"}=err; 
   res.status(statusCode).render("error.ejs",{err});
-  res.status(statusCode).send(message); 
+  res.status(statusCode).send(message);
+  next(); 
 })
 
 app.listen(8080,()=>{
