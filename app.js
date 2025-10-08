@@ -3,7 +3,7 @@ const app = express();
 const mongoose =require("mongoose");
 const Listing=require("../Major Projects/models/listing.js");
 const path= require("path");
-const methodOverirde= require("method-override");
+const methodOverrirde= require("method-override");
 const ejsMate= require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
@@ -15,7 +15,7 @@ const { error } = require("console");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
-app.use(methodOverirde ("_method"));
+app.use(methodOverrirde ("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
@@ -83,7 +83,7 @@ app.get("/listings/:id",wrapAsync(async (req,res)=>{
 
 //Create Route
 app.post("/listings",validateSchema,wrapAsync( async (req,res,next)=>{
-  const newListing= new Listing(req.bodylisting);
+  const newListing= new Listing(req.body.listing);
   await newListing.save();
   res.redirect("/listings");
 }));
@@ -111,16 +111,24 @@ app.delete("/listings/:id",wrapAsync( async (req,res)=>{
   await Listing.findByIdAndDelete( id );
   res.redirect("/listings");
 }));
-app.all("",(req,res,next)=>{
-  next(new ExpressError(404,"Page not Found!!"));
-})
+// app.all("",(req,res,next)=>{
+//   next(new ExpressError(404,"Page not Found!!"));
+// })
+app.all("", (req, res, next) => {
+  next(new ExpressError(404, "Page not Found!!"));
+});
 
-app.use((err,req,res,next)=>{
-  let {statusCode=500,message="Something went Wrong !!"}=err; 
-  res.status(statusCode).render("error.ejs",{err});
-  res.status(statusCode).send(message);
-  next(); 
-})
+// app.use((err,req,res,next)=>{
+//   let {statusCode=500,message="Something went Wrong !!"}=err; 
+//   res.status(statusCode).render("error.ejs",{err});
+//   res.status(statusCode).send(message);
+//   next(); 
+// })
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Something went wrong!";
+  res.status(statusCode).render("error.ejs", { err });
+});
 
 app.listen(8080,()=>{
     console.log("Server is listening to port 8080");
