@@ -111,6 +111,12 @@ header {
 .logo-brand i {
   font-size: 2.3rem;
 }
+.navbar-brand{
+  padding-right: 3rem !important;
+}
+.nav-search-box{
+  padding-left: 13rem !important;
+}
 
 a {
   text-decoration: none;
