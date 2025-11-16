@@ -3,7 +3,9 @@
     <body>
         <div class="row">
             <div class="col-8 offset-2">
-                <h3><%= listing.title %>:</h3>
+                <h3>
+                    <%= listing.title %>:
+                </h3>
                 <div class="card">
                     <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="Image">
                     <div class="card-body">
@@ -14,8 +16,8 @@
                         <ul>
                             <li>About : <%= listing.description %>
                             </li>
-                            <li> Price : &#8377;<%= listing.price %>
-                            </li>
+                            <!-- <li> Price : &#8377;<%= listing.price %>
+                            </li> -->
                             <li>Country : <%= listing.country %>
                             </li>
                             <li>Location : <%= listing.location %>
@@ -31,28 +33,43 @@
                                 <button class="btn btn-danger ">Delete</button>
                             </form>
                         </div>
-                        
-                        <div class="col-8 offset mb-3 mt-3" >
+
+                        <div class="col-8 offset mb-3 mt-3">
                             <hr>
                             <h4>Leave a Review </h4>
-                            <form action="/listings/<%= listing._id  %>/reviews" method="post">
+                            <form action="/listings/<%= listing._id  %>/reviews" method="post" class="needs-validation">
                                 <div class="mb-3 mt-3">
                                     <label for="rating" class="form-label">Rating</label>
-                                   <input type="range"min="1" max="5" id="rating" name="review[rating]">
+                                    <input type="range" min="1" max="5" id="rating" name="review[rating]">
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <label for="comment" class="form-label">Comments</label>
-                                    <textarea name="review[comment]" id="comment" cols="60" rows="5" class="form-control" >
+                                    <textarea name="review[comment]" id="comment" cols="60" rows="5"
+                                        class="form-control" required>
 
                                     </textarea>
                                 </div>
                                 <button class="btn btn-outline-dark">Submit</button>
                             </form>
+                            <hr>
+                            <h4>All Reviews </h4>
+                            <% for(review of listing.reviews) {%>
+                                <ul>
+                                    <li>
+                                        <%= review.comment %>,
+                                            <% for (let i=0; i < review.rating; i++) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                                <% } %>
+
+                                    </li>
+                                </ul>
+
+                                <% } %>
                         </div>
 
-                     </div>   
+                    </div>
 
-                    
+
 
                 </div>
 

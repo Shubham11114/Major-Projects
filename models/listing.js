@@ -45,8 +45,6 @@ const listingSchema = new Schema({
         v === "" ? "https://wallpaperaccess.com/full/505152.jpg" : v
     }
   },
-
-  price: Number,
   location: String,
   country: String,
   reviews:[

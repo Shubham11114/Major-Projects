@@ -1,6 +1,7 @@
 const mongoose =require("mongoose");
 const initData= require("./data.js");
 const Listing=require("../models/listing.js");
+const hoamePageData=require("./homePageData.js");
 
 
 main()  
@@ -17,6 +18,7 @@ async function main() {
 const initDB= async ()=>{
    await  Listing.deleteMany({});
    await Listing.insertMany(initData.data);
+   await hoamePageData.insertMany(initData.data);
    console.log("Data was initilize Sucessfully");
 }
 initDB(); 

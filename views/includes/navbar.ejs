@@ -1,6 +1,6 @@
- <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+ <!-- <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-compass"></i>WanderHub</a>
+    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i>WanderHub</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
 
 
   </div>
-</nav>
+</nav> -->
 
 <!-- <header>
     <nav class="nav-main">
@@ -88,3 +88,126 @@
       })
      
   </script> -->
+
+   <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-4">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/"
+          ><i class="fa-solid fa-compass text-primary mx-1"></i>WanderHub</a
+        >
+
+        <!-- Mobile buttons -->
+        <div class="d-flex align-items-center d-lg-none gap-2 ms-auto">
+          <button id="searchToggle" class="btn btn-outline-black btn-sm" aria-label="Open Search">
+          <i class="bi bi-search"></i>
+          </button>
+          <button
+            class="navbar-toggler shadow-none border-0"
+            type="button"
+            aria-label="Open Menu"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <!-- Offcanvas Menu -->
+        <div
+          class="offcanvas offcanvas-start text-bg-light"
+          tabindex="-1"
+          id="offcanvasNavbar"
+        >
+          <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title fs-4">
+              <a class="navbar-brand" href="/"
+                ><i class="fa-solid fa-compass text-primary mx-1"></i>WanderHub</a
+              >
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-black shadow-none"
+              aria-label="Close Search"
+              data-bs-dismiss="offcanvas"
+            ></button>
+          </div>
+
+          <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+            <!-- Navbar Links -->
+            <ul class="navbar-nav justify-content-start align-items-center fs-6 flex-grow-1 pe-3 hover-effect" >
+              <li class="nav-item mx-2">
+                <a class="nav-link active" href="/listings">Home</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#add-listing">AddListing</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#all-listing">AllListings</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#about">About</a>
+              </li>
+              <!-- <li class="nav-item mx-2">
+                <a class="nav-link" href="#services">Services</a>
+              </li> -->
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="#contact">Contact</a>
+              </li>
+            </ul>
+
+            <!-- Desktop Search (after menu) -->
+            <form class="d-none d-lg-flex navbar-search-desktop ms-3">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control border-0 rounded-start-4"
+                  placeholder="Search..."
+                />
+                <button class="btn btn-primary rounded-end-4" aria-label="Search-Data" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </form>
+
+            <!-- Login / Signup -->
+            <div
+              class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3 ms-lg-3"
+            >
+              <a href="#login" class="text-black text-decoration-none">Login</a>
+              <a href="#sign-up" class="btn btn-primary rounded-pill px-4 py-1"
+                >Sign Up</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Search Box -->
+    <div class="mobile-search-box" id="mobileSearch">
+      <form class="d-flex gap-2">
+        <input
+          type="text"
+          class="form-control me-2"
+          placeholder="Search..."
+          autofocus
+        />
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+        <button
+          class="btn btn-outline-black shadow-sm"
+          aria-label="Close Search"
+          type="button"
+          id="closeSearch"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </form>
+    </div>
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

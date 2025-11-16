@@ -10,6 +10,7 @@ const ExpressError=require("./utils/ExpressError.js");
 const {listingSchema}=require("./schema.js");
 const { error } = require("console");
 const Review=require("./models/reviews.js");
+const homepage_data= require("./models/homepage_data.js");
 
 
 
@@ -66,7 +67,8 @@ const validateSchema=(req,res,next)=>{
 //index Routing
 app.get("/listings",wrapAsync(async (req,res)=>{
  const allListing= await Listing.find({});
- res.render("listings/index.ejs",{allListing});
+ const homePage= await homepage_data.find({});
+ res.render("listings/index.ejs",{allListing,homePage});
 
 }));
 
@@ -78,7 +80,7 @@ app.get("/listings/new",(req,res)=>{
 //Show Route
 app.get("/listings/:id",wrapAsync(async (req,res)=>{
   let{id}=req.params;
-  const listing=await Listing.findById(id);
+  const listing=await Listing.findById(id).populate("reviews");
   res.render("listings/show.ejs",{listing});
 }));
 
