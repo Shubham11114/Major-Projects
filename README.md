@@ -61,5 +61,5 @@ WanderHub (also referred to as WonderHub in the database config) is a robust tou
 ## 🤝 Contributing
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page or create a pull request if you want to contribute to the project's development.
 
-## 📜 License
-This project is licensed under the ISC License.
+## 📜 Rights
+All the rights reserved @WanderHub.
