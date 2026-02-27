@@ -1,213 +1,103 @@
- <!-- <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i>WanderHub</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
+<!-- Premium Glass Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-glass">
+  <div class="container-fluid px-4 px-lg-5">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/listings">
+      <i class="fa-solid fa-compass text-accent fs-4"></i>
+      <span class="brand-text">WanderHub</span>
+    </a>
 
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listing</a>
-        <a class="nav-link" href="/listings/new">New Listings</a>
-        <div class="nav-search-box">
-
-          <div class="search-box">
-       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Explore location" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
+    <!-- Mobile Toggler & Search Trigger -->
+    <div class="d-flex align-items-center gap-3 d-lg-none">
+      <button class="btn-icon-glass" id="mobileSearchToggle" aria-label="Open Search">
+        <i class="bi bi-search"></i>
+      </button>
+      <button class="navbar-toggler border-0 p-0 shadow-none" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#premiumMobileMenu" aria-controls="premiumMobileMenu" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <div class="hamburger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-            
+      </button>
+    </div>
 
+    <!-- Desktop Menu & Actions -->
+    <div class="collapse navbar-collapse" id="desktopMenu">
+      <!-- Centered Links -->
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link active" href="/listings">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="#all-listing">Destinations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="/listings/new">Add Listing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-nav-link" href="#about_us">About</a>
+        </li>
+      </ul>
 
+      <!-- Right Side: Search & Auth -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Desktop Search Bar -->
+        <div class="search-pill d-none d-xl-flex">
+          <i class="bi bi-search text-muted ms-3"></i>
+          <input type="text" class="form-control border-0 bg-transparent shadow-none"
+            placeholder="Search destinations...">
+        </div>
+
+        <!-- Auth Buttons -->
+        <a href="/listings/login" class="btn btn-link text-dark text-decoration-none fw-semibold">Log in</a>
+        <a href="/listings/signup" class="btn btn-premium-primary rounded-pill px-4">Sign Up</a>
       </div>
     </div>
-
-
   </div>
-</nav> -->
+</nav>
 
-<!-- <header>
-    <nav class="nav-main">
-      <div class="nav-left">
-         <a class="logo-brand" href="/"><i class="fa-solid fa-compass"></i>WanderHub</a>
-          
-         <button class="nav-togle">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-         </button>
+<!-- Premium Mobile Offcanvas Menu -->
+<div class="offcanvas offcanvas-end glass-offcanvas" tabindex="-1" id="premiumMobileMenu"
+  aria-labelledby="premiumMobileMenuLabel">
+  <div class="offcanvas-header border-0 pb-0">
+    <h5 class="offcanvas-title brand-text" id="premiumMobileMenuLabel">WanderHub</h5>
+    <button type="button" class="btn-close btn-close-dark shadow-none" data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column pt-4 px-4">
 
-    
-        <div class="nav-menu">
-          <a href="#home" class="active">Home</a>  
-          <a href="#services">Services</a> 
-          <a href="#contact">Contact</a> 
-          <a href="#about">About</a> 
-          <a href="#alllistinings">All Listining</a>
-          <a class="addNew-listining" href="#addlistining">Add Listining <span>NEW</span></a>  
-        </div> -->
-          <!-- <i class="fa-solid fa-bars toggle-btn"></i> -->
-      <!-- </div> -->
-
-      <!-- <div class="nav-right">
-        <div class="search-bar">
-          <button class="search-btn" type="button" aria-label="Search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-          <input type="text" placeholder="Search Your Destination...">
-        </div>
-
-        <div class="icon-div" id="wishlist">
-          <i class="fa-regular fa-heart icons"></i>
-          <p class="nav-icon-text">Wishlist</p>
-        </div>
- 
-
-        <div class="icon-div" id="profile-div">
-           <i class="fa-regular fa-circle-user icons"></i>
-           <p class="nav-icon-text">Profile</p>
-        </div>
-         
-    </nav> -->
-
-  <!-- </header>
-
-  <script>
-      
-      const navTogle = document.querySelector('.nav-togle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      navTogle.addEventListener('click', () => {
-        navTogle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-      })
-     
-  </script> -->
-
-   <!-- Navbar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top"
-    >
-      <div class="container-fluid px-4">
-        <!-- Brand -->
-        <a class="navbar-brand" href="/"
-          ><i class="fa-solid fa-compass text-primary mx-1"></i>WanderHub</a
-        >
-
-        <!-- Mobile buttons -->
-        <div class="d-flex align-items-center d-lg-none gap-2 ms-auto">
-          <button id="searchToggle" class="btn btn-outline-black btn-sm" aria-label="Open Search">
-          <i class="bi bi-search"></i>
-          </button>
-          <button
-            class="navbar-toggler shadow-none border-0"
-            type="button"
-            aria-label="Open Menu"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-
-        <!-- Offcanvas Menu -->
-        <div
-          class="offcanvas offcanvas-start text-bg-light"
-          tabindex="-1"
-          id="offcanvasNavbar"
-        >
-          <div class="offcanvas-header border-bottom">
-            <h5 class="offcanvas-title fs-4">
-              <a class="navbar-brand" href="/"
-                ><i class="fa-solid fa-compass text-primary mx-1"></i>WanderHub</a
-              >
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-black shadow-none"
-              aria-label="Close Search"
-              data-bs-dismiss="offcanvas"
-            ></button>
-          </div>
-
-          <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-            <!-- Navbar Links -->
-            <ul class="navbar-nav justify-content-start align-items-center fs-6 flex-grow-1 pe-3 hover-effect" >
-              <li class="nav-item mx-2">
-                <a class="nav-link active" href="/listings">Home</a>
-              </li>
-              <li class="nav-item mx-2">
-                <a class="nav-link" href="#add-listing">AddListing</a>
-              </li>
-              <li class="nav-item mx-2">
-                <a class="nav-link" href="#all-listing">AllListings</a>
-              </li>
-              <li class="nav-item mx-2">
-                <a class="nav-link" href="#about">About</a>
-              </li>
-              <!-- <li class="nav-item mx-2">
-                <a class="nav-link" href="#services">Services</a>
-              </li> -->
-              <li class="nav-item mx-2">
-                <a class="nav-link" href="#contact">Contact</a>
-              </li>
-            </ul>
-
-            <!-- Desktop Search (after menu) -->
-            <form class="d-none d-lg-flex navbar-search-desktop ms-3">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control border-0 rounded-start-4"
-                  placeholder="Search..."
-                />
-                <button class="btn btn-primary rounded-end-4" aria-label="Search-Data" type="submit">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </form>
-
-            <!-- Login / Signup -->
-            <div
-              class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3 ms-lg-3"
-            >
-              <a href="#login" class="text-black text-decoration-none">Login</a>
-              <a href="#sign-up" class="btn btn-primary rounded-pill px-4 py-1"
-                >Sign Up</a
-              >
-            </div>
-          </div>
-        </div>
+    <!-- Mobile Search -->
+    <div class="mobile-search-wrapper mb-4">
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0 rounded-start-pill ps-3"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control border-start-0 rounded-end-pill shadow-none"
+          placeholder="Where to next?">
       </div>
-    </nav>
-
-    <!-- Mobile Search Box -->
-    <div class="mobile-search-box" id="mobileSearch">
-      <form class="d-flex gap-2">
-        <input
-          type="text"
-          class="form-control me-2"
-          placeholder="Search..."
-          autofocus
-        />
-        <button class="btn btn-outline-primary" type="submit">Search</button>
-        <button
-          class="btn btn-outline-black shadow-sm"
-          aria-label="Close Search"
-          type="button"
-          id="closeSearch"
-        >
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </form>
     </div>
 
+    <ul class="navbar-nav gap-3 mb-5">
+      <li class="nav-item">
+        <a class="nav-link mobile-nav-link active" href="/listings">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mobile-nav-link" href="/listings">Explore</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mobile-nav-link" href="/listings/new">Become a Host</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mobile-nav-link" href="#about">About Us</a>
+      </li>
+    </ul>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="mt-auto mb-4 d-grid gap-2">
+      <a href="#login" class="btn btn-outline-dark rounded-pill py-2">Log in</a>
+      <a href="#signup" class="btn btn-premium-primary rounded-pill py-2">Sign Up</a>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

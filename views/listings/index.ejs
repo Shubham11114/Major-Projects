@@ -1,33 +1,100 @@
 <% layout("/layouts/boilerplate.ejs") %>
+    <!-- Immersive Hero Section -->
+    <div class="hero-wrapper">
+        <div class="hero-image-container">
+            <img src="assets/homepage.avif"
+                alt="Explore Bihar" class="hero-bg-img">
+            <div class="hero-overlay-gradient"></div>
+            <div class="hero-text-content">
+                <span class="hero-badge-glass mb-3">DISCOVER THE UNDISCOVERED</span>
+                <h1 class="hero-main-title display-1 mb-4">Experience the Soul of Local places
+                </h1>
+                <p class="hero-desc mb-5">From ancient ruins to spiritual sanctuaries, begin your journey here.</p>
 
-    <body>
-       
-        <h3>All Listings</h3>
-        <!-- <form action="/listings/new" method="get">
-        <button>Create new Listing</button>
-    </form> -->
-
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-            <% for(let listing of allListing) {%>
-                <a href="/listings/<%= listing._id  %>" class="listing-link">
-                    <div class="card col">
-                        <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image"
-                            style="height: 20rem;">
-                        <div class="card-img-overlay"> </div>
-                        <div class="card-body">
-                            <p class="card-text"><b>
-                                    <%= listing.title %>
-                                </b> <br>
-                                <%= listing.description %> <br>
-
-
-                            </p>
+                <div class="search-bar-modern">
+                    <form action="/listings" method="GET" class="d-flex w-100 p-1">
+                        <div class="search-input-group border-0">
+                            <i class="fa-solid fa-location-dot ps-2"></i>
+                            <input type="text" name="q" placeholder="Where to next?" class="ms-2">
                         </div>
-                    </div>
-                </a>
-
-                <% } %>
+                        <button class="search-btn">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Plan Your Trip / Categories -->
+    <div class="container my-5">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Plan Your Trip</h2>
+            <p class="section-subtitle">Explore by interest</p>
         </div>
 
+        <div class="category-row">
+            <a href="/listings?category=heritage" class="category-card">
+                <div class="icon-circle"><i class="fa-solid fa-gopuram"></i></div>
+                <span>Heritage</span>
+            </a>
+            <a href="/listings?category=nature" class="category-card">
+                <div class="icon-circle"><i class="fa-solid fa-leaf"></i></div>
+                <span>Nature</span>
+            </a>
+            <a href="/listings?category=spiritual" class="category-card">
+                <div class="icon-circle"><i class="fa-solid fa-person-praying"></i></div>
+                <span>Spiritual</span>
+            </a>
+            <a href="/listings?category=food" class="category-card">
+                <div class="icon-circle"><i class="fa-solid fa-bowl-food"></i></div>
+                <span>Food</span>
+            </a>
+            <a href="/listings?category=other" class="category-card">
+                <div class="icon-circle"><i class="fa-solid fa-hotel"></i></div>
+                <span>Stays</span>
+            </a>
+            <a href="/listings?category=adventure" class="category-card">
+                <div class="icon-circle"><i class="fa-solid fa-camera"></i></div>
+                <span>Gallery</span>
+            </a>
+        </div>
+    </div>
 
-    </body>
+
+    <script src="/js/regions.js"></script>
+
+    <!-- Featured Highlights (Listings) -->
+   <div class="recommand">
+    <h2 >Our Recommendations </h2>
+   </div>
+   
+   
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of allListing) {%>
+            <a href="/listings/<%= listing._id  %>" class="listing-link">
+                <div class="card col">
+                    <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+                    <div class="card-img-overlay"> </div>
+                    <div class="card-body">
+                        <p class="card-text"><b>
+                                <%= listing.title %>
+                            </b> <br>
+                            <%= listing.description %> <br>
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <% } %>
+    </div>
+    <!-- Promo/Banner Section -->
+    <div class="container-fluid promo-section my-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="promo-title">Share Your Story</h2>
+                    <p class="promo-text">Have you visited a hidden gem in Bihar? Become a local guide and show the
+                        world the beauty of your hometown.</p>
+                    <a href="/listings/new" class="btn btn-outline-light rounded-pill px-4 py-2 mt-3">Start Hosting</a>
+                </div>
+            </div>
+        </div>
+    </div>
