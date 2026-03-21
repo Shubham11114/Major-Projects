@@ -994,7 +994,7 @@ label {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  background: url('https://github.com/LunarLogic/starability/raw/master/starability-images/icons.png') no-repeat;
+background: url('https://raw.githubusercontent.com/LunarLogic/starability/master/starability-images/icons.png') no-repeat;
   background-position: 0 -30px;
   text-indent: -9999px;
   /* Hide text */
@@ -1019,7 +1019,7 @@ label {
   width: 60px;
   /* 5 stars * 12px approx width */
   height: 12px;
-  background: url('https://github.com/LunarLogic/starability/raw/master/starability-images/icons.png') repeat-x;
+ background: url('https://raw.githubusercontent.com/LunarLogic/starability/master/starability-images/icons.png') repeat-x;
   background-position: 0 -60px;
   background-size: 15px auto;
 }
@@ -1050,7 +1050,7 @@ label {
   top: 0;
   left: 0;
   height: 100%;
-  background: url('https://github.com/LunarLogic/starability/raw/master/starability-images/icons.png') repeat-x;
+ background: url('https://raw.githubusercontent.com/LunarLogic/starability/master/starability-images/icons.png') repeat-x;
   background-position: 0 0;
   background-size: 15px auto;
 }
