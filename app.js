@@ -8,13 +8,18 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
-const { error } = require("console");
-const Review = require("./models/reviews.js");
-const homepage_data = require("./models/homepage_data.js");
-const listings=require("./routes/listing.js");
+
 const e = require("express");
 const session = require('express-session');
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+
+
+const listingRouter=require("./routes/listing.js");
+const reviewRouter=require("./routes/reviews.js");
+const userRouter=require("./routes/user.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -65,6 +70,17 @@ app.get("/", (req, res) => {
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -72,47 +88,19 @@ app.use((req, res, next) => {
 }
 );
 
-
-// app.get("/testlisting",async (req,res)=>{
-//     let sampleListing= new Listing({
-//         title:"My villa",
-//         description:"This is my private vila ",
-//         price:19000,
-//         country:"India",
-//     })
-//     await sampleListing.save(); 
-//     console.log("Sample was saved");
-//     res.send("Testing was sucessfully"); 
+// app.get("/listings/login", (req, res) => {
+//   res.sendFile(path.join(__dirname, "auth", "login", "login.html"));
 // });
-app.get("/listings/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "auth", "login", "login.html"));
-});
-app.get("/listings/signup", (req, res) => {
-  res.sendFile(path.join(__dirname, "auth", "signup", "signup.html"));
-});
-app.get("/listings/forget-password", (req, res) => {
-  res.sendFile(path.join(__dirname, "auth", "forget", "forget-password.html"));
-});
+// app.get("/listings/signup", (req, res) => {
+//   res.sendFile(path.join(__dirname, "auth", "signup", "signup.html"));
+// });
+// app.get("/listings/forget-password", (req, res) => {
+//   res.sendFile(path.join(__dirname, "auth", "forget", "forget-password.html"));
+// });
 
-app.use("/listings", listings);
-
-//Reviews Route
-app.post("/listings/:id/reviews", async (req, res) => {
-
-  let listing = await Listing.findById(req.params.id);
-  let newReview = new Review(req.body.review);
-
-  listing.reviews.push(newReview);
-  await newReview.save();
-  await listing.save();
-
-  console.log("new reviews saved ");
-   req.flash("success", "Review added successfully!");
-  res.redirect(`/listings/${listing._id}`);
- 
-
-});
-
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 
 // app.all("",(req,res,next)=>{
