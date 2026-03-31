@@ -1,0 +1,47 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="d-flex align-items-center justify-content-center bg-light w-100 py-5" style="min-height: 85vh;">
+    <div class="card shadow-lg border-0 rounded-4 p-4 w-100" style="max-width: 450px;">
+        <div class="text-center mb-4">
+            <h2 class="h3 fw-bold text-primary mb-1">Welcome Back!</h2>
+            <p class="text-muted small">Login to explore amazing destinations</p>
+        </div>
+
+        <form action="/login" method="POST" class="needs-validation" novalidate>
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label fw-medium text-dark">Email</label>
+                <input type="email" id="email" name="email" class="form-control py-2 px-3 rounded-3" placeholder="Enter your email" required>
+                <div class="invalid-feedback">
+                    Please provide a valid email address.
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label fw-medium text-dark">Password</label>
+                <input type="password" id="password" name="password" class="form-control py-2 px-3 rounded-3" placeholder="Enter your password" required>
+                <div class="invalid-feedback">
+                    Please provide your password.
+                </div>
+            </div>
+
+            <!-- Remember & Forgot -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check mb-0">
+                    <input type="checkbox" id="remember" class="form-check-input">
+                    <label class="form-check-label text-muted small" for="remember">Remember me</label>
+                </div>
+                <a href="/forget-password" class="text-primary small text-decoration-none fw-medium">Forgot password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-medium">Login</button>
+        </form>
+
+        <!-- Sign Up -->
+        <p class="text-center text-muted small mt-4 mb-0">
+            Don't have an account? <a href="/signup" class="text-primary fw-medium text-decoration-none">Sign up</a>
+        </p>
+    </div>
+</div>

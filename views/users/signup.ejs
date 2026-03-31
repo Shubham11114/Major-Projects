@@ -1,0 +1,64 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="d-flex align-items-center justify-content-center bg-light w-100 py-5" style="min-height: 85vh;">
+    <div class="card shadow-lg border-0 rounded-4 p-4 w-100" style="max-width: 450px;">
+        <h2 class="h3 fw-bold text-center text-dark mb-4">Create Account</h2>
+
+        <form action="/signup" method="POST" class="needs-validation" novalidate>
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label for="username" class="form-label fw-medium text-dark">Full Name</label>
+                <input type="text" id="username" name="username" class="form-control py-2 px-3 rounded-3" placeholder="User Name" required>
+                <div class="invalid-feedback">
+                    Please enter your full name.
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label fw-medium text-dark">Email</label>
+                <input type="email" id="email" name="email" class="form-control py-2 px-3 rounded-3" placeholder="Enter your email" required>
+                <div class="invalid-feedback">
+                    Please provide a valid email address.
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label fw-medium text-dark">Password</label>
+                <input type="password" id="password" name="password" class="form-control py-2 px-3 rounded-3" placeholder="Create a password" required>
+                <div class="invalid-feedback">
+                    Please provide a password.
+                </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+                <label for="confirm-password" class="form-label fw-medium text-dark">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" class="form-control py-2 px-3 rounded-3" placeholder="Confirm your password" required>
+                <div class="invalid-feedback">
+                    Please confirm your password.
+                </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="mb-4 form-check">
+                <input type="checkbox" id="terms" class="form-check-input" required>
+                <label class="form-check-label text-muted" for="terms">
+                    I agree to the <a href="#" class="text-primary text-decoration-none">Terms & Conditions</a>
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+            </div>
+
+            <!-- Sign Up Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-medium">Sign Up</button>
+        </form>
+
+        <!-- Already have account -->
+        <p class="text-center text-muted small mt-4 mb-0">
+            Already have an account? <a href="/login" class="text-primary fw-medium text-decoration-none">Login</a>
+        </p>
+    </div>
+</div>

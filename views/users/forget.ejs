@@ -1,0 +1,29 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="d-flex align-items-center justify-content-center bg-light w-100 py-5" style="min-height: 85vh;">
+    <div class="card shadow-lg border-0 rounded-4 p-4 w-100" style="max-width: 450px;">
+        <div class="text-center mb-4">
+            <h2 class="h3 fw-bold text-primary mb-2">Forgot Password</h2>
+            <p class="text-muted small">Enter your registered email, and we'll send you a link to reset your password.</p>
+        </div>
+
+        <form action="/forget-password" method="POST" class="needs-validation" novalidate>
+            <!-- Email -->
+            <div class="mb-4">
+                <label for="email" class="form-label fw-medium text-dark">Email</label>
+                <input type="email" id="email" name="email" class="form-control py-2 px-3 rounded-3" placeholder="Enter your email" required>
+                <div class="invalid-feedback">
+                    Please provide a valid email address.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-medium">Send Reset Link</button>
+        </form>
+
+        <!-- Back to login -->
+        <p class="text-center text-muted small mt-4 mb-0">
+            Remembered your password? <a href="/login" class="text-primary fw-medium text-decoration-none">Back to Login</a>
+        </p>
+    </div>
+</div>
