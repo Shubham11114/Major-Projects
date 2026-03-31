@@ -7,6 +7,7 @@ const Listing = require("../models/listing.js");
 const homepage_data = require("../models/homepage_data.js");
 const Review = require("../models/reviews.js");
 const ExpressError = require("../utils/ExpressError.js");
+const {isLoggedIn} = require("../middleware.js");
 
 const validateReviewSchema = (req, res, next) => {
     let { error } = reviewSchema.validate(req.body);
@@ -21,7 +22,7 @@ const validateReviewSchema = (req, res, next) => {
 
 
 //Reviews Route
-router.post("/", async (req, res) => {
+router.post("/", isLoggedIn, async (req, res) => {
 
   let listing = await Listing.findById(req.params.id);
   let newReview = new Review(req.body.review);

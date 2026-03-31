@@ -51,10 +51,13 @@
         </div>
 
         <!-- Auth Buttons -->
-        <% if(!locals.hideAuthButtons) { %>
+        <% if(!currentUser) { %>
         <a href="/login" class="btn btn-link text-dark text-decoration-none fw-semibold">Log in</a>
         <a href="/signup" class="btn btn-premium-primary rounded-pill px-4">Sign Up</a>
         <% } %>
+        <% if(currentUser) { %>
+        <a href="/logout" class="btn btn-outline-dark rounded-pill px-4">Log Out</a>
+         <% } %>
       </div>
     </div>
   </div>

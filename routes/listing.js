@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
 const homepage_data = require("../models/homepage_data.js");
+const {isLoggedIn} = require("../middleware.js");
 
 const validateSchema = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -23,8 +24,8 @@ router.get("/", wrapAsync(async (req, res) => {
 
 }));
 
-//New route / Create new
-router.get("/new", (req, res) => {
+//New route 
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 
@@ -40,7 +41,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }));
 
 //Create Route
-router.post("/", validateSchema, wrapAsync(async (req, res, next) => {
+router.post("/",isLoggedIn, validateSchema, wrapAsync(async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   req.flash("success", "Listing created successfully!");
@@ -50,7 +51,7 @@ router.post("/", validateSchema, wrapAsync(async (req, res, next) => {
 
 
 //Edit Route
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
    req.flash("success", "Edited successfully!");
@@ -58,7 +59,7 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-router.put("/:id", validateSchema, wrapAsync(async (req, res) => {
+router.put("/:id",isLoggedIn, validateSchema, wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
    req.flash("success", "Listing updated successfully!");
@@ -67,7 +68,7 @@ router.put("/:id", validateSchema, wrapAsync(async (req, res) => {
 }));
 
 //Delete Route
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
   let { id } = req.params;
   id = id.trim();
   await Listing.findByIdAndDelete(id);
