@@ -12,6 +12,7 @@ const { error } = require("console");
 const Review = require("./models/reviews.js");
 const homepage_data = require("./models/homepage_data.js");
 const listings=require("./routes/listing.js");
+const e = require("express");
 
 
 app.set("view engine", "ejs");
@@ -21,6 +22,16 @@ app.use(methodOverrirde("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const sessionOptions = {
+  secret:"mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expire: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+  },
+};
 // Middleware to make currentUser available in all views (even if null)
 app.use((req, res, next) => {
   res.locals.currentUser = null; // Set to req.user if auth is implemented
