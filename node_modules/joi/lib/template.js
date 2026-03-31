@@ -75,7 +75,7 @@ module.exports = exports = internals.Template = class {
         const processed = [];
         const head = parts.shift();
         if (head) {
-            processed.push(head);
+            processed.push(internals.decode(head));
         }
 
         for (const part of parts) {

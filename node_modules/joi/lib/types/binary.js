@@ -33,6 +33,14 @@ module.exports = Any.extend({
         }
     },
 
+    jsonSchema(schema, res, mode, options) {
+
+        res.type = 'string';
+        res.format = 'binary';
+
+        return res;
+    },
+
     rules: {
         encoding: {
             method(encoding) {
@@ -56,6 +64,12 @@ module.exports = Any.extend({
 
                 return helpers.error('binary.' + name, { limit: args.limit, value });
             },
+            jsonSchema(rule, res) {
+
+                res.minLength = rule.args.limit;
+                res.maxLength = rule.args.limit;
+                return res;
+            },
             args: [
                 {
                     name: 'limit',
@@ -70,6 +84,11 @@ module.exports = Any.extend({
             method(limit) {
 
                 return this.$_addRule({ name: 'max', method: 'length', args: { limit }, operator: '<=' });
+            },
+            jsonSchema(rule, res) {
+
+                res.maxLength = rule.args.limit;
+                return res;
             }
         },
 
@@ -77,6 +96,11 @@ module.exports = Any.extend({
             method(limit) {
 
                 return this.$_addRule({ name: 'min', method: 'length', args: { limit }, operator: '>=' });
+            },
+            jsonSchema(rule, res) {
+
+                res.minLength = rule.args.limit;
+                return res;
             }
         }
     },

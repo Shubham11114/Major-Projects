@@ -144,6 +144,23 @@ module.exports = Any.extend({
         }
     },
 
+    jsonSchema(schema, res, mode, options) {
+
+        const noEmpty = !schema._valids?.has('') && !schema._flags.only;
+        if (noEmpty) {
+            const min = schema.$_getRule('min');
+            const length = schema.$_getRule('length');
+
+            if ((!min || min.args.limit > 0) &&
+                (!length || length.args.limit > 0)) {
+
+                res.minLength = 1;
+            }
+        }
+
+        return res;
+    },
+
     rules: {
 
         alphanum: {
@@ -180,6 +197,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.base64');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'base64';
+                return res;
             }
         },
 
@@ -260,6 +282,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.dataUri');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'data-uri';
+                return res;
             }
         },
 
@@ -309,6 +336,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.email', { value, invalids });
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'email';
+                return res;
             }
         },
 
@@ -398,6 +430,11 @@ module.exports = Any.extend({
                 }
 
                 return value;
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'uuid';
+                return res;
             }
         },
 
@@ -430,6 +467,11 @@ module.exports = Any.extend({
                 }
 
                 return value;
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'hex';
+                return res;
             }
         },
 
@@ -447,6 +489,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.hostname');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'hostname';
+                return res;
             }
         },
 
@@ -477,6 +524,18 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.ip', { value, cidr: options.cidr });
+            },
+            jsonSchema(rule, res) {
+
+                const version = rule.args.options.version;
+                if (version && version.length === 1) {
+                    res.format = version[0];
+                }
+                else {
+                    res.format = 'ip';
+                }
+
+                return res;
             }
         },
 
@@ -492,6 +551,11 @@ module.exports = Any.extend({
                 }
 
                 return error('string.isoDate');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'date-time';
+                return res;
             }
         },
 
@@ -507,6 +571,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.isoDuration');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'duration';
+                return res;
             }
         },
 
@@ -523,6 +592,12 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.' + name, { limit: args.limit, value, encoding });
+            },
+            jsonSchema(rule, res) {
+
+                res.minLength = rule.args.limit;
+                res.maxLength = rule.args.limit;
+                return res;
             },
             args: [
                 {
@@ -547,6 +622,11 @@ module.exports = Any.extend({
 
                 return internals.length(this, 'max', limit, '<=', encoding);
             },
+            jsonSchema(rule, res) {
+
+                res.maxLength = rule.args.limit;
+                return res;
+            },
             args: ['limit', 'encoding']
         },
 
@@ -554,6 +634,15 @@ module.exports = Any.extend({
             method(limit, encoding) {
 
                 return internals.length(this, 'min', limit, '>=', encoding);
+            },
+            jsonSchema(rule, res) {
+
+                if (rule.args.limit > 0) {
+
+                    res.minLength = rule.args.limit;
+                }
+
+                return res;
             },
             args: ['limit', 'encoding']
         },
@@ -602,6 +691,11 @@ module.exports = Any.extend({
 
                 return helpers.error(errorCode, { name: options.name, regex, value });
             },
+            jsonSchema(rule, res) {
+
+                res.pattern = rule.args.regex.source;
+                return res;
+            },
             args: ['regex', 'options'],
             multi: true
         },
@@ -639,6 +733,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.token');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'token';
+                return res;
             }
         },
 
@@ -728,6 +827,11 @@ module.exports = Any.extend({
                 }
 
                 return helpers.error('string.uri');
+            },
+            jsonSchema(rule, res) {
+
+                res.format = 'uri';
+                return res;
             }
         }
     },

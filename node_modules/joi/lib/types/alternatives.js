@@ -146,6 +146,49 @@ module.exports = Any.extend({
         return internals.errors(errors, helpers);
     },
 
+    jsonSchema(schema, res, mode, options) {
+
+        const matches = [];
+
+        // Collect all alternative schemas from 'matches' term
+
+        for (const match of schema.$_terms.matches) {
+            if (match.schema) {
+                matches.push(match.schema.$_jsonSchema(mode, options));
+            }
+            else {
+                // Handle conditional matches (when/switch)
+
+                const tests = match.is ? [match] : match.switch;
+                for (const test of tests) {
+                    if (test.then) {
+                        matches.push(test.then.$_jsonSchema(mode, options));
+                    }
+
+                    if (test.otherwise) {
+                        matches.push(test.otherwise.$_jsonSchema(mode, options));
+                    }
+                }
+            }
+        }
+
+        if (matches.length) {
+            delete res.type;
+
+            // Map alternatives to 'anyOf' or 'oneOf' based on the match flag
+
+            const matchMode = schema._flags.match ?? 'any';
+            if (matchMode === 'one') {
+                res.oneOf = matches;
+            }
+            else {
+                res.anyOf = matches;
+            }
+        }
+
+        return res;
+    },
+
     rules: {
 
         conditional: {

@@ -29,6 +29,29 @@ module.exports = Any.extend({
         return schema.ref(ref);
     },
 
+    jsonSchema(schema, res, mode, options) {
+
+        if (!schema.$_terms.link) {
+            return res;
+        }
+
+        const { ref } = schema.$_terms.link[0];
+
+        if (ref.ancestor === 'root' || ref.ancestor > 0) {
+            res.$ref = `#/${ref.path.map((p) => `properties/${p}`).join('/')}`;
+            return res;
+        }
+
+        if (ref.path.length === 1) {
+            res.$ref = `#/$defs/${ref.path[0]}`;
+        }
+        else {
+            res.$ref = `#/${ref.path.slice(1).map((p) => `properties/${p}`).join('/')}`;
+        }
+
+        return res;
+    },
+
     validate(value, { schema, state, prefs }) {
 
         assert(schema.$_terms.link, 'Uninitialized link schema');

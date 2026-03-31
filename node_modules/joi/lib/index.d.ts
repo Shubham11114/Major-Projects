@@ -8,7 +8,7 @@
 // TypeScript Version: 2.8
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
-import type { StandardSchemaV1 } from "@standard-schema/spec";
+import type { StandardJSONSchemaV1, StandardSchemaV1 } from "@standard-schema/spec";
 
 declare namespace Joi {
   type Types =
@@ -1003,7 +1003,14 @@ declare namespace Joi {
 
   interface AnySchema<TSchema = any>
     extends SchemaInternals,
-      StandardSchemaV1<TSchema> {
+      StandardSchemaV1<any, TSchema>,
+      StandardJSONSchemaV1<any, TSchema> {
+    /**
+     * The Standard properties.
+     */
+    readonly "~standard": StandardSchemaV1.Props<any, TSchema> &
+      StandardJSONSchemaV1.Props<any, TSchema>;
+
     /**
      * Flags of current schema.
      */

@@ -95,6 +95,18 @@ module.exports = Any.extend({
         }
     },
 
+    jsonSchema(schema, json, mode, options) {
+
+        const map = schema.$_terms.map;
+        if (!map.size) {
+            return {};
+        }
+
+        return {
+            anyOf: Array.from(map.keys()).map((key) => ({ const: key }))
+        };
+    },
+
     messages: {
         'symbol.base': '{{#label}} must be a symbol',
         'symbol.map': '{{#label}} must be one of {{#map}}'

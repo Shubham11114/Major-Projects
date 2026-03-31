@@ -13,7 +13,8 @@ const Review = require("./models/reviews.js");
 const homepage_data = require("./models/homepage_data.js");
 const listings=require("./routes/listing.js");
 const e = require("express");
-
+const session = require('express-session');
+const flash = require("connect-flash");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -32,6 +33,9 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
+
+
 // Middleware to make currentUser available in all views (even if null)
 app.use((req, res, next) => {
   res.locals.currentUser = null; // Set to req.user if auth is implemented
@@ -58,7 +62,15 @@ app.get("/", (req, res) => {
   res.send("Hi i am root");
 });
 
+app.use(session(sessionOptions));
+app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+}
+);
 
 
 // app.get("/testlisting",async (req,res)=>{
@@ -95,6 +107,7 @@ app.post("/listings/:id/reviews", async (req, res) => {
   await listing.save();
 
   console.log("new reviews saved ");
+   req.flash("success", "Review added successfully!");
   res.redirect(`/listings/${listing._id}`);
  
 

@@ -186,14 +186,15 @@ exports.entryAsync = async function (value, schema, prefs) {
 };
 
 
-exports.standard = function (value, schema) {
+exports.standard = function (value, schema, options) {
 
+    const prefs = options?.libraryOptions;
 
     if (schema.isAsync()) {
-        return exports.entryAsync(value, schema);
+        return exports.entryAsync(value, schema, prefs);
     }
 
-    return exports.entry(value, schema);
+    return exports.entry(value, schema, prefs);
 };
 
 

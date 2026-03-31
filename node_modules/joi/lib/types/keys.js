@@ -47,6 +47,70 @@ module.exports = Any.extend({
         return schema.keys(keys);
     },
 
+    jsonSchema(schema, res, mode, options) {
+
+        res.type = 'object';
+
+        // Map Joi keys to JSON Schema 'properties' and 'required'
+
+        if (schema.$_terms.keys) {
+            res.properties = {};
+
+            const required = [];
+
+            for (const child of schema.$_terms.keys) {
+                const jsonSchema = child.schema.$_jsonSchema(mode, options);
+                res.properties[child.key] = jsonSchema;
+                if (child.schema._flags.presence === 'required' ||
+                    (mode === 'output' && child.schema._flags.default !== undefined)) {
+
+                    required.push(child.key);
+                }
+            }
+
+            if (required.length) {
+                res.required = required.sort();
+            }
+        }
+
+        // Map Joi patterns to JSON Schema 'patternProperties' or 'additionalProperties'
+
+        if (schema.$_terms.patterns) {
+            const patternProperties = {};
+
+            for (const pattern of schema.$_terms.patterns) {
+                if (pattern.regex) {
+                    patternProperties[pattern.regex.source] = pattern.rule.$_jsonSchema(mode, options);
+                }
+                else {
+                    const isAny = pattern.schema.type === 'any';
+                    if (isAny) {
+                        res.additionalProperties = pattern.rule.$_jsonSchema(mode, options);
+                    }
+                    else {
+                        // Best effort for schema-based patterns that are not 'any'
+                        patternProperties['.*'] = pattern.rule.$_jsonSchema(mode, options);
+                    }
+                }
+            }
+
+            if (Object.keys(patternProperties).length) {
+                res.patternProperties = patternProperties;
+            }
+        }
+
+        // Handle 'additionalProperties' based on unknown keys flag
+
+        if (res.additionalProperties === undefined) {
+            const additionalProperties = schema._flags.unknown === true || (schema._flags.unknown === undefined && !schema.$_terms.keys && !schema.$_terms.patterns && !schema._flags.only);
+            if (additionalProperties === false) {
+                res.additionalProperties = false;
+            }
+        }
+
+        return res;
+    },
+
     validate(value, { schema, error, state, prefs }) {
 
         if (!value ||
@@ -278,6 +342,12 @@ module.exports = Any.extend({
 
                 return helpers.error('object.' + name, { limit: args.limit, value });
             },
+            jsonSchema(rule, res) {
+
+                res.minProperties = rule.args.limit;
+                res.maxProperties = rule.args.limit;
+                return res;
+            },
             args: [
                 {
                     name: 'limit',
@@ -292,6 +362,11 @@ module.exports = Any.extend({
             method(limit) {
 
                 return this.$_addRule({ name: 'max', method: 'length', args: { limit }, operator: '<=' });
+            },
+            jsonSchema(rule, res) {
+
+                res.maxProperties = rule.args.limit;
+                return res;
             }
         },
 
@@ -299,6 +374,11 @@ module.exports = Any.extend({
             method(limit) {
 
                 return this.$_addRule({ name: 'min', method: 'length', args: { limit }, operator: '>=' });
+            },
+            jsonSchema(rule, res) {
+
+                res.minProperties = rule.args.limit;
+                return res;
             }
         },
 

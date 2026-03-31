@@ -129,6 +129,12 @@ exports.type = function (from, options) {
 
     def.rules = rules;
 
+    // JSON Schema
+
+    if (!def.jsonSchema) {
+        def.jsonSchema = parent.jsonSchema;
+    }
+
     // Modifiers
 
     const modifiers = Object.assign({}, parent.modifiers);

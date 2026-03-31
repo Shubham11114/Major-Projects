@@ -45,7 +45,8 @@ module.exports = Any.extend({
         }
 
         if (typeof value === 'string') {
-            const normalized = schema._flags.sensitive ? value : value.toLowerCase();
+            const trimmedValue = value.trim();
+            const normalized = schema._flags.sensitive ? trimmedValue : trimmedValue.toLowerCase();
             value = normalized === 'true' ? true : (normalized === 'false' ? false : value);
         }
 

@@ -68,6 +68,87 @@ module.exports = Any.extend({
         return { value: value.slice() };        // Clone the array so that we don't modify the original
     },
 
+    jsonSchema(schema, res, mode, options) {
+
+        const ordered = schema.$_terms.ordered;
+
+        // Handle ordered items (tuple-like) using 'prefixItems'
+
+        if (ordered.length) {
+            res.prefixItems = ordered.map((item) => item.$_jsonSchema(mode, options));
+        }
+
+        if (schema.$_terms.items.length) {
+            let items;
+            if (schema.$_terms.items.length === 1) {
+                items = schema.$_terms.items[0].$_jsonSchema(mode, options);
+            }
+            else {
+                items = {
+                    anyOf: schema.$_terms.items.map((item) => item.$_jsonSchema(mode, options))
+                };
+            }
+
+            // If there are ordered items, remaining items are 'unevaluatedItems'
+
+            if (ordered.length) {
+                res.unevaluatedItems = items;
+                res.minItems = ordered.length;
+            }
+            else {
+                res.items = items;
+            }
+        }
+        else if (ordered.length) {
+            // No additional items allowed beyond the ordered ones
+
+            res.unevaluatedItems = false;
+            res.minItems = ordered.length;
+            res.maxItems = ordered.length;
+        }
+
+        // Map 'has' rules to 'contains' in JSON Schema
+
+        const contains = [];
+        for (const rule of schema._rules) {
+            if (rule.name === 'has') {
+                contains.push(rule.args.schema.$_jsonSchema(mode, options));
+            }
+        }
+
+        if (contains.length) {
+            if (contains.length === 1) {
+                res.contains = contains[0];
+            }
+            else {
+                res.allOf = contains.map((item) => ({ contains: item }));
+            }
+        }
+
+        if (schema._flags.single &&
+            schema.$_terms.items.length) {
+
+            let items;
+            if (schema.$_terms.items.length === 1) {
+                items = schema.$_terms.items[0].$_jsonSchema(mode, options);
+            }
+            else {
+                items = {
+                    anyOf: schema.$_terms.items.map((item) => item.$_jsonSchema(mode, options))
+                };
+            }
+
+            res = {
+                anyOf: [
+                    res,
+                    items
+                ]
+            };
+        }
+
+        return res;
+    },
+
     rules: {
 
         has: {
@@ -368,6 +449,13 @@ module.exports = Any.extend({
 
                 return helpers.error('array.' + name, { limit: args.limit, value });
             },
+            jsonSchema(rule, res) {
+
+                res.minItems = rule.args.limit;
+                res.maxItems = rule.args.limit;
+
+                return res;
+            },
             args: [
                 {
                     name: 'limit',
@@ -382,6 +470,12 @@ module.exports = Any.extend({
             method(limit) {
 
                 return this.$_addRule({ name: 'max', method: 'length', args: { limit }, operator: '<=' });
+            },
+            jsonSchema(rule, res) {
+
+                res.maxItems = rule.args.limit;
+
+                return res;
             }
         },
 
@@ -389,6 +483,12 @@ module.exports = Any.extend({
             method(limit) {
 
                 return this.$_addRule({ name: 'min', method: 'length', args: { limit }, operator: '>=' });
+            },
+            jsonSchema(rule, res) {
+
+                res.minItems = rule.args.limit;
+
+                return res;
             }
         },
 
@@ -557,6 +657,12 @@ module.exports = Any.extend({
                 }
 
                 return value;
+            },
+            jsonSchema(rule, res) {
+
+                res.uniqueItems = true;
+
+                return res;
             },
             args: ['comparator', 'options'],
             multi: true

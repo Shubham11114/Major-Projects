@@ -99,6 +99,25 @@ exports.default = function (value, defaultValue) {
 };
 
 
+exports.intersect = function (set, other) {
+
+    /* $lab:coverage:off$ */
+    if (typeof set.intersection === 'function') {
+        return set.intersection(other);
+    }
+
+    const result = new Set();
+    for (const item of set) {
+        if (other.has(item)) {
+            result.add(item);
+        }
+    }
+
+    return result;
+    /* $lab:coverage:on$ */
+};
+
+
 exports.isIsoDate = function (date) {
 
     return internals.isoDate.test(date);
