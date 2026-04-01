@@ -52,12 +52,22 @@
 
         <!-- Auth Buttons -->
         <% if(!currentUser) { %>
-        <a href="/login" class="btn btn-link text-dark text-decoration-none fw-semibold">Log in</a>
-        <a href="/signup" class="btn btn-premium-primary rounded-pill px-4">Sign Up</a>
+          <% if(!locals.hideAuthButtons) { %>
+            <% if(!locals.isSignupPage) { %>
+              <a href="/login" class="btn btn-link text-dark text-decoration-none fw-semibold">Log in</a>
+            <% } %>
+            <% if(!locals.isLoginPage) { %>
+              <a href="/signup" class="btn btn-premium-primary rounded-pill px-4">Sign Up</a>
+            <% } %>
+          <% } %>
+        <% } else { %>
+          <div class="d-flex align-items-center gap-3">
+            <div class="user-avatar bg-premium-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 40px; height: 40px; font-size: 1.2rem; background: linear-gradient(135deg, #0d6efd, #0dcaf0);">
+              <%= currentUser.username.charAt(0).toUpperCase() %>
+            </div>
+            <a href="/logout" class="btn btn-outline-dark rounded-pill px-4">Log Out</a>
+          </div>
         <% } %>
-        <% if(currentUser) { %>
-        <a href="/logout" class="btn btn-outline-dark rounded-pill px-4">Log Out</a>
-         <% } %>
       </div>
     </div>
   </div>
@@ -98,9 +108,23 @@
     </ul>
 
     <div class="mt-auto mb-4 d-grid gap-2">
-      <% if(!locals.hideAuthButtons) { %>
-      <a href="/login" class="btn btn-outline-dark rounded-pill py-2">Log in</a>
-      <a href="/signup" class="btn btn-premium-primary rounded-pill py-2">Sign Up</a>
+      <% if(!currentUser) { %>
+        <% if(!locals.hideAuthButtons) { %>
+          <% if(!locals.isSignupPage) { %>
+            <a href="/login" class="btn btn-outline-dark rounded-pill py-2">Log in</a>
+          <% } %>
+          <% if(!locals.isLoginPage) { %>
+            <a href="/signup" class="btn btn-premium-primary rounded-pill py-2">Sign Up</a>
+          <% } %>
+        <% } %>
+      <% } else { %>
+        <div class="d-flex align-items-center mb-3">
+          <div class="user-avatar text-white rounded-circle d-flex align-items-center justify-content-center fw-bold me-2 shadow-sm" style="width: 40px; height: 40px; font-size: 1.2rem; background: linear-gradient(135deg, #0d6efd, #0dcaf0);">
+            <%= currentUser.username.charAt(0).toUpperCase() %>
+          </div>
+          <span class="fw-semibold"><%= currentUser.username %></span>
+        </div>
+        <a href="/logout" class="btn btn-outline-dark rounded-pill py-2">Log Out</a>
       <% } %>
     </div>
   </div>

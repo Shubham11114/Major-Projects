@@ -1,13 +1,37 @@
-<% if(success && success.length) {%>
-<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-  <%= success  %>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% } %>
+<div class="flash-container position-fixed top-0 start-50 translate-middle-x mt-4" style="z-index: 1050; min-width: 300px;">
+  <% if(success && success.length) {%>
+  <div class="alert alert-success alert-dismissible fade show shadow" role="alert" id="success-alert">
+    <i class="fa-solid fa-circle-check me-2"></i> <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <script>
+    setTimeout(() => {
+      let alertNode = document.getElementById('success-alert');
+      if (alertNode && typeof bootstrap !== 'undefined') {
+        let bsAlert = new bootstrap.Alert(alertNode);
+        bsAlert.close();
+      } else if (alertNode) {
+        alertNode.remove();
+      }
+    }, 3000);
+  </script>
+  <% } %>
 
-<% if(error && error.length) {%>
-<div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-  <%= error  %>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <% if(error && error.length) {%>
+  <div class="alert alert-danger alert-dismissible fade show shadow" role="alert" id="error-alert">
+    <i class="fa-solid fa-circle-exclamation me-2"></i> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <script>
+    setTimeout(() => {
+      let alertNode = document.getElementById('error-alert');
+      if (alertNode && typeof bootstrap !== 'undefined') {
+        let bsAlert = new bootstrap.Alert(alertNode);
+        bsAlert.close();
+      } else if (alertNode) {
+        alertNode.remove();
+      }
+    }, 3000);
+  </script>
+  <% } %>
 </div>
-<% } %>

@@ -9,7 +9,7 @@ const {saveRedirectUrl} = require("../middleware.js");
 
 
 router.get("/signup", (req, res) => {
-  res.render("users/signup.ejs", { hideAuthButtons: true });
+  res.render("users/signup.ejs", { isSignupPage: true });
 });
 
 router.post("/signup", wrapAsync(async (req, res) => {
@@ -31,7 +31,7 @@ router.post("/signup", wrapAsync(async (req, res) => {
 }));
 
 router.get("/login", (req, res) => {
-  res.render("users/login.ejs", { hideAuthButtons: true });
+  res.render("users/login.ejs", { isLoginPage: true });
 });
 
 router.post("/login", saveRedirectUrl,passport.authenticate("local", {
