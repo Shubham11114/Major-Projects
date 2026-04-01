@@ -30,7 +30,7 @@
                         <%= listing.description %>
                     </p>
 
-                    <!-- Buttons always visible since no auth yet -->
+                    <% if(currentUser && listing.owner._id.equals(currentUser._id)) {%>
                     <div class="mt-4 pt-4 border-top d-flex gap-3">
                         <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark px-4 py-2 rounded-pill">Edit
                             Listing</a>
@@ -38,6 +38,7 @@
                             <button class="btn btn-outline-danger px-4 py-2 rounded-pill">Delete Listing</button>
                         </form>
                     </div>
+                    <% } %>
                 </div>
 
                 <!-- Reviews Section -->
@@ -96,7 +97,7 @@
                                 </div>
                             </div>
                             <% } %>
-
+<%if(currentUser) { %>
                                 <!-- Review Form -->
                                 <div class="card bg-light border-0 mb-5 p-4 rounded-4">
                                     <h5 class="mb-3">Rate</h5>
@@ -131,7 +132,7 @@
                                         <button class="btn btn-primary px-4 py-2 rounded-pill">Submit Review</button>
                                     </form>
                                 </div>
-
+<% } %>
                                 <!-- Reviews List -->
                                 <% if(listing.reviews.length> 0) { %>
                                     <div class="reviews-list">
@@ -154,8 +155,7 @@
                                                 </p>
                                                 <div class="d-flex align-items-center text-muted small">
                                                     <span class="fw-semibold me-2">
-                                                        <%= review.author ? review.author.username : 'Authorized user'
-                                                            %>
+                                                        <%= review.author.username %>
                                                     </span>
                                                     <i class="fa-solid fa-circle-check text-muted me-1"
                                                         style="font-size: 10px;"></i>
