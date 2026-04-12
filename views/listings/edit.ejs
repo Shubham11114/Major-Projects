@@ -4,7 +4,7 @@
         <div class="col-8 offset-2">
             <h3 class="new-listing">Edit your listing</h3>
             <br>
-            <form action="/listings/<%=listing._id  %>?_method=PUT" method="post" class="needs-validation" novalidate>
+    <form action="/listings/<%=listing._id  %>?_method=PUT" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-3 ">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="listing[title]" value="<%=listing.title%>" class="form-control" required>
@@ -15,27 +15,23 @@
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <input type="text" name="listing[description]" value="<%=listing.description%>"
-                        class="form-control" required>
+                    <textarea name="listing[description]" class="form-control" required><%=listing.description%></textarea>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="text" name="listing[image]" value="<%=listing.image%>" class="form-control"
-                    required>
-                    <div class="invalid-feedback" >
-                            Image can't be empty!
-                        </div>
+                    Original Image: <br>
+                    <img src="<%=listing.image.url%>" alt="Listing Image" class="img-thumbnail" style="max-width: 200px;">
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload New Image</label>
+                    <input type="file" name="listing[image]" class="form-control">
                 </div>
 
                 <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" name="listing[price]" value="<%=listing.price%>" class="form-control">
-                    </div>
                     <div class="mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
                         <input type="text" name="listing[country]" value="<%=listing.country%>" class="form-control" required>

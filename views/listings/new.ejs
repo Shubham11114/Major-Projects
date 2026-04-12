@@ -6,7 +6,7 @@
             <br><br>
             <h3 class="new-listing">Share your story</h3>
             <br> <br>
-            <form action="/listings" method="post" class="needs-validation" novalidate>
+            <form action="/listings" method="post" class="needs-validation" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="listing[title]" placeholder="Enter Title" class="form-control" required>
@@ -23,10 +23,9 @@
                         Looks good!
                     </div>
                 </div>
-
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image link </label>
-                    <input type="text" name="listing[image]" placeholder="Enter image URL/Link" class="form-control">
+                    <label for="image" class="form-label">Upload Image </label>
+                    <input type="file" name="listing[image]" class="form-control">
                 </div>
                 <div class="row">
                     <!-- <div class="mb-3 col-md-4">

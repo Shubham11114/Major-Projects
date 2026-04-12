@@ -34,16 +34,8 @@ const listingSchema = new Schema({
   description: String,
 
   image: {
-    filename: {
-      type: String,
-      default: "default-image.jpg"
-    },
-    url: {
-      type: String,
-      default: "https://wallpaperaccess.com/full/505152.jpg",
-      set: (v) =>
-        v === "" ? "https://wallpaperaccess.com/full/505152.jpg" : v
-    }
+    url:String,
+    filename:String,
   },
   location: String,
   country: String,

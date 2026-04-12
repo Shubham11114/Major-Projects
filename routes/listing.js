@@ -4,6 +4,10 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.js");
 const homepage_data = require("../models/homepage_data.js");
 const {isLoggedIn, isOwner,validateSchema} = require("../middleware.js");
+const multer  = require('multer');
+const { storage } = require("../cloudConfig.js");
+const uploadCloud = multer({ storage }); 
+const upload = multer({ storage }); 
 
 
 //index Routing
@@ -33,9 +37,16 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }));
 
 //Create Route
-router.post("/",isLoggedIn, validateSchema, wrapAsync(async (req, res, next) => {
+router.post("/",isLoggedIn, upload.single("listing[image]"), validateSchema, wrapAsync(async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
+  
+  if (req.file) {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    newListing.image = { url, filename };
+  }
+  
   await newListing.save();
   req.flash("success", "Listing created successfully!");
   res.redirect("/listings");
@@ -52,11 +63,18 @@ router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
 }));
 
 //Update Route
-router.put("/:id",isLoggedIn,isOwner, validateSchema, wrapAsync(async (req, res) => {
+router.put("/:id",isLoggedIn,isOwner, upload.single("listing[image]"), validateSchema, wrapAsync(async (req, res) => {
   let { id } = req.params;
-  let listing= await Listing.findById(id);
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-   req.flash("success", "Listing updated successfully!");
+  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+  if (req.file) {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
+
+  req.flash("success", "Listing updated successfully!");
   res.redirect(`/listings/${id}`);
 
 }));
