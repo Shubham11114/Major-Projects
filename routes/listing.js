@@ -33,7 +33,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
     req.flash("error", "Listing you requested for does not exist!");
     return res.redirect("/listings");
   }
-  res.render("listings/show.ejs", { listing });
+  res.render("listings/show.ejs", { listing, mapApiKey: process.env.MAP_TOKEN });
 }));
 
 //Create Route

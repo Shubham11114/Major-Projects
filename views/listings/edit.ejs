@@ -22,16 +22,15 @@
                 </div>
 
                 <div class="mb-3">
-                    Original Image: <br>
-                    <img src="<%=listing.image.url%>" alt="Listing Image" class="img-thumbnail" style="max-width: 200px;">
-                </div>
-
-                <div class="mb-3">
                     <label for="image" class="form-label">Upload New Image</label>
                     <input type="file" name="listing[image]" class="form-control">
                 </div>
 
                 <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" name="listing[price]" value="<%=listing.price%>" class="form-control">
+                    </div>
                     <div class="mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
                         <input type="text" name="listing[country]" value="<%=listing.country%>" class="form-control" required>
@@ -49,7 +48,18 @@
                     <div class="invalid-feedback">
                         Please provide a valid location.
                     </div>
+                </div>
 
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="latitude" class="form-label">Latitude (Optional)</label>
+                        <input type="number" step="any" name="listing[latitude]" value="<%=listing.latitude%>" placeholder="e.g. 40.7128" class="form-control">
+                        <div class="form-text text-muted small">Providing exact latitude speeds up map placement.</div>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="longitude" class="form-label">Longitude (Optional)</label>
+                        <input type="number" step="any" name="listing[longitude]" value="<%=listing.longitude%>" placeholder="e.g. -74.0060" class="form-control">
+                    </div>
                 </div>
 
                 <button class="btn btn-primary">Edit</button>

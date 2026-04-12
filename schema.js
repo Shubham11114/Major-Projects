@@ -12,6 +12,8 @@ module.exports.listingSchema = Joi.object({
     location:Joi.string().required(),
     price:Joi.number(),
     country:Joi.string().required(),
+    latitude: Joi.number().allow('', null).optional(),
+    longitude: Joi.number().allow('', null).optional(),
     image:Joi.string().allow("",null)
     }).required()
     

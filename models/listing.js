@@ -39,6 +39,8 @@ const listingSchema = new Schema({
   },
   location: String,
   country: String,
+  latitude: Number,
+  longitude: Number,
   reviews:[
     {
       type: Schema.Types.ObjectId,
