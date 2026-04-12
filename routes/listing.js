@@ -12,7 +12,21 @@ const upload = multer({ storage });
 
 //index Routing
 router.get("/", wrapAsync(async (req, res) => {
-  const allListing = await Listing.find({});
+  const { category, q } = req.query;
+  const filter = {};
+
+  if (category) {
+    filter.category = category;
+  }
+  if (q) {
+    filter.$or = [
+      { title: new RegExp(q, "i") },
+      { location: new RegExp(q, "i") },
+      { country: new RegExp(q, "i") }
+    ];
+  }
+
+  const allListing = await Listing.find(filter);
   const homePage = await homepage_data.find({});
   res.render("./listings/index.ejs", { allListing, homePage });
 

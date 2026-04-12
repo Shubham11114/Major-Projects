@@ -1,20 +1,24 @@
 # WanderHub
 
-WanderHub (also referred to as WonderHub in the database config) is a robust tourism platform application designed to connect users with undiscovered travel destinations. It emphasizes a premium user interface with interactive features, dynamic listings, and geographic filtering.
+WanderHub is a robust tourism platform application designed to connect users with undiscovered travel destinations. It emphasizes a premium user interface with interactive features, dynamic listings, and geographic filtering.
 
 ## 🌟 Features
 
 - **Premium UI/UX:** Clean, modern design featuring glassmorphism elements, high-quality typography (serif titles), and smooth CSS/JS animations inspired by editorial styles.
-- **Interactive Listings:** Complete CRUD (Create, Read, Update, Delete) functionality for tourism listings and locations.
+- **Secure Authentication & Authorization:** Robust user login, signup, and session management powered by Passport.js with role-based access control.
+- **Interactive Listings & Categories:** Complete CRUD functionality for tourism listings, enhanced with category-based filtering (Heritage, Nature, Spiritual, Food, Adventure, etc.).
+- **Cloudinary Image Uploads:** Seamless media storage and handling for user-uploaded listing images using Cloudinary integration.
+- **Interactive Mapbox Integration:** Precise location mapping using custom coordinates alongside a geocoding fallback, powered by Mapbox.
 - **Reviews & Ratings:** Users can leave detailed reviews and star ratings for their favorite destinations.
-- **Geographic Filtering & Search:** Search functionality with "District Wise Results" and interactive map features (e.g., "Regions of Bihar").
-- **Authentication Pages:** Pre-built pages for user login, signup, and password recovery.
-- **Robust Error Handling:** Custom Express error handling and request validation.
+- **Robust Error Handling:** Custom Express error handling, flash messages for UI feedback, and request validation using Joi.
 
 ## 🛠️ Tech Stack
 
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB, Mongoose
+- **Authentication:** Passport.js, express-session
+- **Storage & Media:** Cloudinary, Multer
+- **Mapping:** Mapbox API
 - **Templating:** EJS, EJS-Mate
 - **Validation:** Joi (Server-side model validation)
 - **Frontend:** HTML5, modern CSS, Vanilla JavaScript (with React UI components integrated for advanced interactivity)
@@ -43,18 +47,28 @@ WanderHub (also referred to as WonderHub in the database config) is a robust tou
 3. **Database Setup:**
    Ensure you have [MongoDB](https://www.mongodb.com/) installed and running locally on the default port (`27017`). The application is configured to connect to `mongodb://127.0.0.1:27017/WonderHub`.
 
-4. **Initialize Database (Optional):**
+4. **Environment Variables:**
+   Create a `.env` file in the root directory and add the following required credentials:
+   ```env
+   CLOUD_NAME=your_cloudinary_cloud_name
+   CLOUD_API_KEY=your_cloudinary_api_key
+   CLOUD_API_SECRET=your_cloudinary_api_secret
+   MAPBOX_TOKEN=your_mapbox_access_token
+   SECRET=your_session_secret
+   ```
+
+5. **Initialize Database (Optional):**
    If you have seed data in the `init/` folder, you might want to run the initialization script to populate initial sample listings:
    ```bash
    node init/index.js # (or similar script name if provided)
    ```
 
-5. **Start the Server:**
+6. **Start the Server:**
    ```bash
    node app.js
    ```
 
-6. **View the Application:**
+7. **View the Application:**
    Open your browser and navigate to:
    [http://localhost:8080/listings](http://localhost:8080/listings)
 

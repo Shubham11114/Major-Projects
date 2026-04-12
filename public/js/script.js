@@ -16,7 +16,7 @@
     }, false)
   })
 })()
-// Script for navbar by akhilesh
+// Script for navbar
 
 const searchToggle = document.getElementById("searchToggle");
 const mobileSearch = document.getElementById("mobileSearch");
@@ -38,7 +38,7 @@ closeSearch.addEventListener("click", () => {
   mobileSearch.classList.remove("show");
 });
 
-// ADD THIS BELOW
+
 document.addEventListener("click", function (event) {
   const searchBox = document.getElementById("mobileSearch");
   const searchToggle = document.getElementById("searchToggle");

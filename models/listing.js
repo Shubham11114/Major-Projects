@@ -39,6 +39,11 @@ const listingSchema = new Schema({
   },
   location: String,
   country: String,
+  category: {
+    type: String,
+    enum: ["heritage", "nature", "spiritual", "food", "other", "adventure"],
+    default: "other"
+  },
   latitude: Number,
   longitude: Number,
   reviews:[

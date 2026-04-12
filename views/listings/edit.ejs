@@ -20,6 +20,10 @@
                         Looks good!
                     </div>
                 </div>
+                <div class="mb-3">
+                    Original Image: <br>
+                    <img src="<%=listing.image.url%>" alt="Current Image" class="img-thumbnail mb-3" style="max-width: 400px;">
+                </div>
 
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload New Image</label>
@@ -27,19 +31,27 @@
                 </div>
 
                 <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" name="listing[price]" value="<%=listing.price%>" class="form-control">
-                    </div>
-                    <div class="mb-3 col-md-8">
+                    <div class="mb-3 col-md-6">
                         <label for="country" class="form-label">Country</label>
                         <input type="text" name="listing[country]" value="<%=listing.country%>" class="form-control" required>
                         <div class="invalid-feedback" >
                             Please provide a valid country.
                         </div>
                     </div>
-
-
+                    <div class="mb-3 col-md-6">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="listing[category]" class="form-select form-control" required>
+                            <option value="heritage" <%= listing.category === 'heritage' ? 'selected' : '' %>>Heritage</option>
+                            <option value="nature" <%= listing.category === 'nature' ? 'selected' : '' %>>Nature</option>
+                            <option value="spiritual" <%= listing.category === 'spiritual' ? 'selected' : '' %>>Spiritual</option>
+                            <option value="food" <%= listing.category === 'food' ? 'selected' : '' %>>Food</option>
+                            <option value="adventure" <%= listing.category === 'adventure' ? 'selected' : '' %>>Gallery / Adventure</option>
+                            <option value="other" <%= listing.category === 'other' ? 'selected' : '' %>>Stays / Other</option>
+                        </select>
+                         <div class="invalid-feedback">
+                            Please provide a valid category.
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-4">
                     <label for="location" class="form-label">Location</label>
