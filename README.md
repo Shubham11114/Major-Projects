@@ -76,7 +76,7 @@ WanderHub is a robust tourism platform application designed to connect users wit
 ## 📸 Project Preview
 
 ### Homepage
-<img src="assets/homepage.png" width="100%" alt="Homepage">
+<img src="assets/Homepage.png" width="100%" alt="Homepage">
 
 ### Explore Listings
 <img src="assets/Explore.png" width="100%" alt="Listings">
