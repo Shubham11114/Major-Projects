@@ -30,15 +30,18 @@ closeSearch.addEventListener("click", () => {
   mobileSearch.classList.remove("show");
 });
 
+// searchToggle.addEventListener("click", () => {
+//   mobileSearch.classList.add("show");
+// });
+
+// closeSearch.addEventListener("click", () => {
+//   mobileSearch.classList.remove("show");
+// });
+
 searchToggle.addEventListener("click", () => {
   mobileSearch.classList.add("show");
+  document.querySelector(".search-pill input").focus();
 });
-
-closeSearch.addEventListener("click", () => {
-  mobileSearch.classList.remove("show");
-});
-
-
 document.addEventListener("click", function (event) {
   const searchBox = document.getElementById("mobileSearch");
   const searchToggle = document.getElementById("searchToggle");
@@ -131,30 +134,30 @@ document.addEventListener("keydown", (e) => {
 // Thumbnail Click → Open That Slide First
 // ---------------------------
 document.querySelectorAll(".hero-thumbnail .hero-item").forEach((thumb, index) => {
-    thumb.addEventListener("click", () => {
+  thumb.addEventListener("click", () => {
 
-        if (isAnimating) return;
-        isAnimating = true;
+    if (isAnimating) return;
+    isAnimating = true;
 
-        let sliderItems = sliderList.querySelectorAll(".hero-item");
-        let thumbItems = thumbnail.querySelectorAll(".hero-item");
+    let sliderItems = sliderList.querySelectorAll(".hero-item");
+    let thumbItems = thumbnail.querySelectorAll(".hero-item");
 
-        // STEP 1: Convert NodeList → Array for easy rotation
-        sliderItems = Array.from(sliderItems);
-        thumbItems = Array.from(thumbItems);
+    // STEP 1: Convert NodeList → Array for easy rotation
+    sliderItems = Array.from(sliderItems);
+    thumbItems = Array.from(thumbItems);
 
-        // STEP 2: Rotate both arrays until clicked one becomes first
-        while (thumbnail.firstElementChild !== thumb) {
-            sliderList.appendChild(sliderList.firstElementChild);
-            thumbnail.appendChild(thumbnail.firstElementChild);
-        }
+    // STEP 2: Rotate both arrays until clicked one becomes first
+    while (thumbnail.firstElementChild !== thumb) {
+      sliderList.appendChild(sliderList.firstElementChild);
+      thumbnail.appendChild(thumbnail.firstElementChild);
+    }
 
-        // STEP 3: Trigger animation
-        slider.classList.add("next");
+    // STEP 3: Trigger animation
+    slider.classList.add("next");
 
-        // Reset auto slider
-        resetAutoSlider();
-    });
+    // Reset auto slider
+    resetAutoSlider();
+  });
 });
 
 
@@ -167,10 +170,10 @@ let totalSlides = document.querySelectorAll(".hero-list .hero-item").length;
 // Create indicators
 indicatorContainer.innerHTML = "";
 for (let i = 0; i < totalSlides; i++) {
-    let dot = document.createElement("div");
-    dot.classList.add("indicator");
-    dot.innerHTML = `<div class="progress"></div>`;
-    indicatorContainer.appendChild(dot);
+  let dot = document.createElement("div");
+  dot.classList.add("indicator");
+  dot.innerHTML = `<div class="progress"></div>`;
+  indicatorContainer.appendChild(dot);
 }
 
 let indicators = document.querySelectorAll(".indicator");
@@ -178,43 +181,43 @@ let currentIndex = 0;
 
 // Reset all indicators CLEANLY
 function resetIndicators() {
-    indicators.forEach(ind => {
-        ind.classList.remove("active");
-        const p = ind.querySelector(".progress");
+  indicators.forEach(ind => {
+    ind.classList.remove("active");
+    const p = ind.querySelector(".progress");
 
-        // Remove transition first
-        p.style.transition = "none";
-        p.style.width = "0%";
+    // Remove transition first
+    p.style.transition = "none";
+    p.style.width = "0%";
 
-        // Force reflow so browser resets animation
-        void p.offsetWidth;
+    // Force reflow so browser resets animation
+    void p.offsetWidth;
 
-        // Re-enable transition
-        p.style.transition = `width ${autoSlideInterval}ms linear`;
-    });
+    // Re-enable transition
+    p.style.transition = `width ${autoSlideInterval}ms linear`;
+  });
 }
 
 // Start animation on ONLY the selected indicator
 function startIndicator(index) {
-    resetIndicators();
+  resetIndicators();
 
-    indicators[index].classList.add("active");
-    let bar = indicators[index].querySelector(".progress");
+  indicators[index].classList.add("active");
+  let bar = indicators[index].querySelector(".progress");
 
-    // Set progress animation
-    bar.style.width = "100%";
+  // Set progress animation
+  bar.style.width = "100%";
 }
 
 // Auto-update indicator when slider moves forward
 function updateIndicatorNext() {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    startIndicator(currentIndex);
+  currentIndex = (currentIndex + 1) % totalSlides;
+  startIndicator(currentIndex);
 }
 
 // Auto-update indicator when slider moves backward
 function updateIndicatorPrev() {
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    startIndicator(currentIndex);
+  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+  startIndicator(currentIndex);
 }
 
 // Manual next/prev buttons
@@ -226,18 +229,18 @@ setInterval(updateIndicatorNext, autoSlideInterval);
 
 // Clicking indicator → go to specific slide
 indicators.forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-        if (isAnimating) return;
+  dot.addEventListener("click", () => {
+    if (isAnimating) return;
 
-        // Rotate slides until selected index is first
-        while (currentIndex !== index) {
-            moveSlider("next");
-            currentIndex = (currentIndex + 1) % totalSlides;
-        }
+    // Rotate slides until selected index is first
+    while (currentIndex !== index) {
+      moveSlider("next");
+      currentIndex = (currentIndex + 1) % totalSlides;
+    }
 
-        startIndicator(index);
-        resetAutoSlider();
-    });
+    startIndicator(index);
+    resetAutoSlider();
+  });
 });
 
 // Start first indicator

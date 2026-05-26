@@ -72,6 +72,18 @@ WanderHub is a robust tourism platform application designed to connect users wit
    Open your browser and navigate to:
    [http://localhost:8080/listings](http://localhost:8080/listings)
 
+
+## 📸 Project Preview
+
+### Homepage
+<img src="assets/homepage.png" width="100%" alt="Homepage">
+
+### Explore Listings
+<img src="assets/Explore.png" width="100%" alt="Listings">
+
+### Map Integration And Reviews
+<img src="assets/Map & Reviews.png" width="100%" alt="Mapbox & Reviews">
+
 ## 🤝 Contributing
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page or create a pull request if you want to contribute to the project's development.
 
