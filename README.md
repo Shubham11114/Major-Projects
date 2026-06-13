@@ -2,7 +2,8 @@
 
 WanderHub is a robust tourism platform application designed to connect users with undiscovered travel destinations. It emphasizes a premium user interface with interactive features, dynamic listings, and geographic filtering.
 
-## 🔗 LINK https://wanderhub-mxi3.onrender.com/listings
+## 🔗 LINK
+ https://wanderhub-mxi3.onrender.com/listings
 
 ## 🌟 Features
 
