@@ -14,6 +14,7 @@ const { listingSchema } = require("./schema.js");
 
 const e = require("express");
 const session = require('express-session');
+const { MongoStore } = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -31,7 +32,22 @@ app.use(methodOverrirde("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+
+const store = MongoStore.create({
+  mongoUrl: process.env.ATLASDB_URL,
+  touchAfter: 24 * 60 * 60, // time period in seconds
+  crypto: {
+    secret: 'mysupersecretcode'
+  }
+});
+
+store.on("error", function (err) {
+  console.log("ERROR IN MONGODB SESSION STORE ", err);
+}); 
+
+
 const sessionOptions = {
+  store: store,
   secret:"mysupersecretcode",
   resave: false,
   saveUninitialized: true,
@@ -62,13 +78,18 @@ main()
   });
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/WonderHub");
+  // await mongoose.connect("mongodb://127.0.0.1:27017/WonderHub");
+  const dbUrl=process.env.ATLASDB_URL;
+  await mongoose.connect(dbUrl);
 }
 
 
 // app.get("/", (req, res) => {
 //   res.send("Hi i am root");
 // });
+
+
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -92,34 +113,14 @@ app.use((req, res, next) => {
 }
 );
 
-// app.get("/listings/login", (req, res) => {
-//   res.sendFile(path.join(__dirname, "auth", "login", "login.html"));
-// });
-// app.get("/listings/signup", (req, res) => {
-//   res.sendFile(path.join(__dirname, "auth", "signup", "signup.html"));
-// });
-// app.get("/listings/forget-password", (req, res) => {
-//   res.sendFile(path.join(__dirname, "auth", "forget", "forget-password.html"));
-// });
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-
-// app.all("",(req,res,next)=>{
-//   next(new ExpressError(404,"Page not Found!!"));
-// })
 app.all("", (req, res, next) => {
   next(new ExpressError(404, "Page not Found!!"));
 });
 
-// app.use((err,req,res,next)=>{
-//   let {statusCode=500,message="Something went Wrong !!"}=err; 
-//   res.status(statusCode).render("error.ejs",{err});
-//   res.status(statusCode).send(message);
-//   next(); 
-// })
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Something went wrong!";

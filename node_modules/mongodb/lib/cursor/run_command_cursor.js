@@ -77,7 +77,7 @@ class RunCommandCursor extends abstract_cursor_1.AbstractCursor {
         };
     }
     /** @internal */
-    async getMore(_batchSize) {
+    async getMore() {
         if (!this.session) {
             throw new error_1.MongoRuntimeError('Unexpected null session. A cursor creating command should have set this');
         }
